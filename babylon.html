@@ -1,73 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Babylon.js - Первая сцена</title>
-    <!-- Подключаем основной движок -->
+    <title>Babylon.js - Моя 3D Модель</title>
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
-    <!-- Подключаем загрузчик для моделей из Blender (.gltf / .glb) -->
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
-    
     <style>
-        #renderCanvas {
-            width: 100%;
-            height: 100%;
-            touch-action: none; /* Нужно для корректной работы тачскринов */
-        }
-        html, body {
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
+        html, body { overflow: hidden; width: 100%; height: 100%; margin: 0; padding: 0; }
+        #renderCanvas { width: 100%; height: 100%; touch-action: none; }
     </style>
 </head>
 <body>
     <canvas id="renderCanvas"></canvas>
     <script>
-        const canvas = document.getElementById("renderCanvas"); // Находим наш холст
-const engine = new BABYLON.Engine(canvas, true); // Создаем движок
+        const canvas = document.getElementById("renderCanvas");
+        const engine = new BABYLON.Engine(canvas, true);
 
-// Функция для создания сцены
-const createScene = function () {
-    const scene = new BABYLON.Scene(engine); // 1. Создаем саму сцену
+        const createScene = function () {
+            const scene = new BABYLON.Scene(engine);
 
-    // 2. Создаем камеру (ArcRotateCamera позволяет крутить модель мышкой)
-    // Параметры: название, угол альфа, угол бета, радиус (дистанция), цель (куда смотрим), сцена
-    const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 5, new BABYLON.Vector3(0, 0, 0), scene);
-    camera.attachControl(canvas, true); // Разрешаем камере слушаться мышку
+            // 1. Пути к модели (теперь только один раз!)
+            const modelPath = ""; 
+            const modelName = "ra-etna-m.glb";
 
-    // 3. Создаем свет (HemisphericLight - дает общий мягкий свет, как от неба)
-    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+            // 2. Базовый свет (чтобы модель не была черной)
+            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
-    // Сначала объявляем переменные с адресом
-    const modelPath = "https://zan-black.ru/my_game/";
-    const modelName = "ra-etna-m.glb";
+            // 3. Загрузка модели
+            BABYLON.SceneLoader.ImportMesh("", modelPath, modelName, scene, function (meshes) {
+                // Авто-создание камеры, которая облетит всю модель
+                scene.createDefaultCameraOrLight(true, true, true);
+                scene.activeCamera.attachControl(canvas, true);
+                
+                console.log("Модель успешно загружена!");
+            });
 
-// Оставляем пустым, так как файл в корне репозитория
-const modelPath = ""; 
+            return scene;
+        };
 
-// Полное имя файла
-const modelName = "ra-etna-m.glb";
+        const scene = createScene();
 
-BABYLON.SceneLoader.ImportMesh("", modelPath, modelName, scene, function (meshes) {
-    scene.createDefaultCameraOrLight(true, true, true);
-    scene.activeCamera.attachControl(canvas, true);
-});
-    return scene;
-};
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
 
-const scene = createScene(); // Запускаем создание
-
-// Тот самый цикл рендеринга (повторяется 60 раз в секунду)
-engine.runRenderLoop(function () {
-    scene.render();
-});
-
-// Слушатель событий: если изменить размер окна браузера — сцена подстроится
-window.addEventListener("resize", function () {
-    engine.resize();
-});
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
     </script>
 </body>
 </html>
