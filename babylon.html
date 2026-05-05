@@ -15,27 +15,27 @@
         const canvas = document.getElementById("renderCanvas");
         const engine = new BABYLON.Engine(canvas, true);
 
-        const createScene = function () {
-            const scene = new BABYLON.Scene(engine);
+        const createScene = function () {const createScene = function () {
+    const scene = new BABYLON.Scene(engine);
 
-            // 1. Пути к модели (теперь только один раз!)
-            const modelPath = ""; 
-            const modelName = "ra-etna-m.glb";
+    // Удаляем старые ссылки на zan-black.ru и оставляем только это:
+    const modelPath = ""; 
+    const modelName = "ra-etna-m.glb";
 
-            // 2. Базовый свет (чтобы модель не была черной)
-            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+    // Настройка света и камеры
+    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+    const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 5, new BABYLON.Vector3(0, 0, 0), scene);
+    camera.attachControl(canvas, true);
 
-            // 3. Загрузка модели
-            BABYLON.SceneLoader.ImportMesh("", modelPath, modelName, scene, function (meshes) {
-                // Авто-создание камеры, которая облетит всю модель
-                scene.createDefaultCameraOrLight(true, true, true);
-                scene.activeCamera.attachControl(canvas, true);
-                
-                console.log("Модель успешно загружена!");
-            });
+    // Загрузка модели
+    BABYLON.SceneLoader.ImportMesh("", modelPath, modelName, scene, function (meshes) {
+        scene.createDefaultCameraOrLight(true, true, true);
+        scene.activeCamera.attachControl(canvas, true);
+        console.log("Успех! Модель в сцене.");
+    });
 
-            return scene;
-        };
+    return scene;
+};
 
         const scene = createScene();
 
