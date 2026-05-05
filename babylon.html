@@ -24,7 +24,15 @@ const createScene = function () {
     camera.attachControl(canvas, true);
 
     // 2. Сразу добавляем свет
-    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+
+    // 1. Оставляем общий мягкий свет (уменьшим яркость, чтобы он не "забивал" тени)
+const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+light.intensity = 0.5; 
+
+// 2. Добавляем направленный свет (как солнце)
+const directionalLight = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(-1, -2, -1), scene);
+directionalLight.position = new BABYLON.Vector3(20, 40, 20); // С какой точки светим
+directionalLight.intensity = 1.5; // Настраиваем яркость по вкусу
 
     const modelPath = ""; 
     const modelName = "ra-etna-m.glb";
