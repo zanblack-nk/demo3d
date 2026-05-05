@@ -51,19 +51,15 @@ const createScene = function () {
         console.log("Теперь переменные на месте, модель должна грузиться!");
     });
 
-BABYLON.SceneLoader.ImportMesh("", modelPath, modelName, scene, function (meshes) {
-    // 1. Берем самый первый меш (обычно это корень модели)
-    const root = meshes[0];
-    
-    // 2. Давай принудительно увеличим/уменьшим модель, если её не видно
-    // Попробуй поменять 1 на 0.1 если модель огромная, или на 10 если маленькая
-    root.scaling = new BABYLON.Vector3(1, 1, 1); 
+// Оставляем пустым, так как файл в корне репозитория
+const modelPath = ""; 
 
-    // 3. Авто-настройка камеры
+// Полное имя файла
+const modelName = "ra-etna-m.glb";
+
+BABYLON.SceneLoader.ImportMesh("", modelPath, modelName, scene, function (meshes) {
     scene.createDefaultCameraOrLight(true, true, true);
     scene.activeCamera.attachControl(canvas, true);
-
-    console.log("Попытка отображения завершена. Проверь экран!");
 });
     return scene;
 };
