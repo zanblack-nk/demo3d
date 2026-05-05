@@ -44,13 +44,6 @@ const createScene = function () {
     const modelPath = "https://zan-black.ru/my_game/";
     const modelName = "ra-etna-m.glb";
 
-    // Теперь загружаем
-    BABYLON.SceneLoader.ImportMesh("", modelPath, modelName, scene, function (meshes) {
-        scene.createDefaultCameraOrLight(true, true, true);
-        scene.activeCamera.attachControl(canvas, true);
-        console.log("Теперь переменные на месте, модель должна грузиться!");
-    });
-
 // Оставляем пустым, так как файл в корне репозитория
 const modelPath = ""; 
 
