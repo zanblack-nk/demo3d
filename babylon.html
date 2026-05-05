@@ -22,6 +22,12 @@ const createScene = function () {
 
     // 2. Сразу добавляем свет
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+light.intensity = 0.7; // Можно немного приглушить общую яркость
+
+// Добавляем "Солнце" (Направленный свет)
+const sunLight = new BABYLON.DirectionalLight("sunLight", new BABYLON.Vector3(-1, -2, -1), scene);
+sunLight.position = new BABYLON.Vector3(20, 40, 20); // Ставим лампу повыше
+sunLight.intensity = 1.5; // Делаем его поярче
 
     const modelPath = ""; 
     const modelName = "ra-etna-m.glb";
