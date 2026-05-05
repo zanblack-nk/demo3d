@@ -13,6 +13,7 @@
     <canvas id="renderCanvas"></canvas>
     <script>
 const createScene = function () {
+    scene.clearColor = new BABYLON.Color3(0.5, 0.8, 0.5); // Сделает фон светло-зеленым 🌿
     const scene = new BABYLON.Scene(engine);
 
     // 1. Сразу создаем камеру, чтобы движку было через что смотреть
