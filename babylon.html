@@ -38,6 +38,24 @@ const createScene = function () {
 
     return scene;
 };
+// Находим холст
+const canvas = document.getElementById("renderCanvas"); 
+
+// Создаем "двигатель"
+const engine = new BABYLON.Engine(canvas, true); 
+
+// Запускаем создание сцены
+const scene = createScene(); 
+
+// Запускаем бесконечный цикл отрисовки (60 кадров в секунду)
+engine.runRenderLoop(function () {
+    scene.render();
+});
+
+// Следим за размером окна
+window.addEventListener("resize", function () {
+    engine.resize();
+});
     </script>
 </body>
 </html>
