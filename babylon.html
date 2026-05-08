@@ -22,8 +22,6 @@ const createScene = function () {
     // 1. Сразу создаем камеру, чтобы движку было через что смотреть
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 5, new BABYLON.Vector3(0, 0, 0), scene);
     camera.attachControl(canvas, true);
-    camera.useAutoRotationBehavior = false;
-    camera.inertia = 0.7;
     
     // 2. Явно отключаем авто-вращение для новой камеры
     scene.activeCamera.useAutoRotationBehavior = false;
