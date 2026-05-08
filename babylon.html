@@ -48,34 +48,17 @@ light.intensity = 2.5;
 
     // 3. Загружаем модель асинхронно
     BABYLON.SceneLoader.ImportMesh("", modelPath, modelName, scene, function (meshes) {
-        // Когда модель прилетит, эта команда «подлетит» камерой к ней
-        scene.createDefaultCameraOrLight(true, true, true);
-        
-        // Снова привязываем управление к новой авто-камере
-        scene.activeCamera.attachControl(canvas, true);
-        
-        console.log("Модель загружена, вращение отключено!");
-    });
 
-    return scene;
-};
-// Находим холст
-const canvas = document.getElementById("renderCanvas"); 
+    // Берем всю модель
+    const root = meshes[0];
 
-// Создаем "двигатель"
-const engine = new BABYLON.Engine(canvas, true); 
+    // Центрируем камеру на модели
+    camera.target = root.getBoundingInfo().boundingBox.centerWorld;
 
-// Запускаем создание сцены
-const scene = createScene(); 
+    // Приближаем/отдаляем
+    camera.radius = 3;
 
-// Запускаем бесконечный цикл отрисовки (60 кадров в секунду)
-engine.runRenderLoop(function () {
-    scene.render();
-});
-
-// Следим за размером окна
-window.addEventListener("resize", function () {
-    engine.resize();
+    console.log("Модель загружена!");
 });
     </script>
 </body>
