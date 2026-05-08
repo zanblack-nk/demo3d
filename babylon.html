@@ -22,6 +22,13 @@ const createScene = function () {
     // 1. Сразу создаем камеру, чтобы движку было через что смотреть
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 5, new BABYLON.Vector3(0, 0, 0), scene);
     camera.attachControl(canvas, true);
+    
+    // 2. Явно отключаем авто-вращение для новой камеры
+    scene.activeCamera.useAutoRotationBehavior = false;
+    
+    // 3. Чтобы свет был ярче, мы можем настроить экспозицию сцены
+    // (это как яркость на мониторе или в фотоаппарате)
+    scene.environmentIntensity = 2.0;
 
     // 2. Сразу добавляем свет
 
@@ -45,7 +52,7 @@ light.intensity = 2.5;
         // Снова привязываем управление к новой авто-камере
         scene.activeCamera.attachControl(canvas, true);
         
-        console.log("Модель загружена, камера настроена!");
+        console.log("Модель загружена, вращение отключено!");
     });
 
     return scene;
